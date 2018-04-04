@@ -2,7 +2,7 @@
 A basic starter app  with the Flask framework and PyMongo
 """
 
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
@@ -18,11 +18,22 @@ mongo = PyMongo(app, config_prefix='MONGO')
 
 
 # here is the songs
-@app.route('/')
-@app.route('/songs')
+
+
+@app.route('/songs',methods=['GET','POST'])
 def songs():
-    songs = mongo.db.songs.find()
-    return render_template('songs.html', songs=songs)
+
+
+    if request.method == 'GET':
+        songs = mongo.db.songs.find()
+        return render_template('songs.html', songs=songs)
+
+    if request.method == 'POST':
+        songs = mongo.db.songs.find({'artist_name':request.form['search']})
+        return render_template('songs.html', songs=songs)
+
+
+        #return '<h1> '+request.form['search']+'</h1>'
 
 
 @app.route('/home')
