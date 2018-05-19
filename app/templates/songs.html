@@ -1,35 +1,66 @@
 {% extends "base.html" %}
 
-{% block title %}Artist Songs {% endblock title %}
+{% block title %} Artist Songs {% endblock title %}
 
 {% block content %}
 
-
-
     <form method="post" type="form">
 
-    <input type="search" name="search" placeholder="Search..">
-    <input type="submit" name="submit" placeholder="Submit">
+    <input type="checkbox" name="is_include_artist"  placeholder="Artists" >
+    <input type="search" name="search"  placeholder="Search..">
+    <input type="submit" name="submit" class="btn btn-primary"  placeholder="Submit">
 
     </form>
 
-
-
-
-    <table class="table table-striped table-hover ">
+    <table class="table table-striped table-hover " >
         <thead>
         <tr>
             <th>#</th>
             <th>Song Id</th>
+            <th>Artist ID</th>
+            <th>Artist Name</th>
             <th>Song Title</th>
+            <th>Song Key</th>
+            <th>Energy</th>
+            <th>Liveness</th>
+            <th>Tempo</th>
+            <th>Speechiness</th>
+            <th>Sound Quality</th>
+            <th>Instrumentalness</th>
+            <th>Mode</th>
+            <th>Time Signature</th>
+            <th>Duration</th>
+            <th>Loudness</th>
+            <th>Valence</th>
+            <th>Danceability</th>
+            <th>Year</th>
+
         </tr>
         </thead>
+
         <tbody>
         {% for song in songs %}
             <tr>
                 <td>{{ song._id }}</td>
+                <td>{{ song.id }}</td>
+                <td>{{ song.artist_id }}</td>
+                <td>{{ song.artist_name }}</td>
                 <td>{{ song.song_title }}</td>
                 <td>{{ song.key }}</td>
+            <td>{{ song.energy }}</td>
+            <td>{{ song.liveness }}</td>
+            <td>{{ song.tempo }}</td>
+            <td>{{ song.speechiness }}</td>
+            <td>{{ song.Sound_quality }}</td>
+            <td>{{ song.instrumentalness }}</td>
+            <td>{{ song.mode }}</td>
+            <td>{{ song.time_signature }}</td>
+            <td>{{ song.duration }}</td>
+            <td>{{ song.loudness }}</td>
+            <td>{{ song.valence }}</td>
+            <td>{{ song.danceability }}</td>
+            <td>{{ song.years }}</td>
+
             </tr>
         {% endfor %}
 

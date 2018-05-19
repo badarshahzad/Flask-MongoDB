@@ -29,13 +29,22 @@ def songs():
         return render_template('songs.html', songs=songs)
 
     if request.method == 'POST':
-        songs = mongo.db.songs.find({'artist_name':request.form['search']})
+
+        #is_artisti_include
+        value = request.form.get("is_include_artist")
+
+
+        #search the artist with name
+        artist_name = request.form['search']
+
+        if value :
+            songs = mongo.db.songs.find({'artist_name': "Eminem"})
+        else:
+            songs = mongo.db.songs.find({'artist_name': artist_name})
         return render_template('songs.html', songs=songs)
 
 
-        #return '<h1> '+request.form['search']+'</h1>'
-
-
+@app.route('/')
 @app.route('/home')
 def home():
     return render_template("home.html")
@@ -80,4 +89,4 @@ def all_comments():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) # I will see any error messages occure due to this true
