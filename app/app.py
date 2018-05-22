@@ -27,7 +27,7 @@ def returnValues():
 @app.route('/',methods=['GET','POST'])
 def getArtistValue():
 
-    artist_name = request.form['search']
+    search_by_text = request.form['search']
 
     if request.method == 'GET':
         songs = mongo.db.songs.find()
@@ -35,13 +35,14 @@ def getArtistValue():
 
         # search the artist with name
 
-    if request.method == 'POST':
-        songs = mongo.db.songs.find({'artist_name': artist_name})
-        return render_template('gallery.html', songs=songs)
 
-    if artist_name == "":
-        songs = mongo.db.songs.find({'artist_name': artist_name})
-        return render_template('gallery.html', songs=songs)
+    if request.method == 'POST':
+        songs = mongo.db.songs.find({'artist_name': search_by_text})
+
+    if search_by_text == "":
+        songs = mongo.db.songs.find({'artist_name': search_by_text})
+
+    return render_template('gallery.html', songs=songs)
 
 
 @app.route('/query/<number>')
@@ -108,7 +109,7 @@ def yearSearch(yearNumberStr):
     yearNumberInt = int(yearNumberStr)
 
     if yearNumberInt == 1950:
-        songs = mongo.db.sngs.find({'years': '1950s'})
+        songs = mongo.db.songs.find({'years': '1950s'})
 
     if yearNumberInt == 1960:
         songs = mongo.db.songs.find({'years': '1960s'})
